@@ -1,7 +1,13 @@
-FROM python:3.4-alpine
+FROM node:8
 
-WORKDIR /app
+ADD . /code
 
-COPY . /app
+WORKDIR /code
 
-EXPOSE 80
+COPY package*.json ./
+
+RUN npm install
+
+EXPOSE 1337
+
+CMD [ "node", "index.js" ]
