@@ -1,10 +1,8 @@
 FROM node:8
 
-ADD . /code
+ADD ./messenger-webhook /code
 
 WORKDIR /code
-
-COPY package*.json ./
 
 RUN npm install
 
