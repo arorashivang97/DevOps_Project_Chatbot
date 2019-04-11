@@ -1,7 +1,11 @@
-FROM python:3.4-alpine
+FROM node:8
 
-WORKDIR /app
+ADD ./messenger-webhook /code
 
-COPY . /app
+WORKDIR /code
 
-EXPOSE 80
+RUN npm install
+
+EXPOSE 1337
+
+CMD [ "node", "index.js" ]
