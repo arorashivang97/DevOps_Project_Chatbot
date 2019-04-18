@@ -1,7 +1,17 @@
-FROM python:3.4-alpine
+FROM node:7.8-slim
 
+# app workdir
 WORKDIR /app
 
-COPY . /app
+# copy app dependencies
+COPY package.json ./
 
-EXPOSE 80
+# install dependecies
+RUN npm install -g mocha mocha-jenkins-reporter
+RUN npm --allow-root install
+
+# build app source code
+COPY . ./
+
+# runtime configs
+ENTRYPOINT ["sh","./entrypoint.sh"]
