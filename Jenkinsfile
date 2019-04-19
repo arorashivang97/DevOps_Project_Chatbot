@@ -6,13 +6,13 @@ node{
     }
     
     stage ('Build image'){
-        app = docker.build("mohdshabaz/spe_bank:${env.BUILD_NUMBER}")
+        app = docker.build("arorashivang97/spe-project:${env.BUILD_NUMBER}")
         
     }
     
     stage ('Test image'){
         app.inside{
-            sh 'echo "Test Passed"'
+            sh 'npm test'
         }
     }
     
@@ -21,6 +21,7 @@ node{
             app.push()
         }
     }
+
 }
 
 
