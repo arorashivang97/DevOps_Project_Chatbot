@@ -10,7 +10,8 @@ COPY package.json ./
 COPY . ./
 
 # install dependecies
-RUN npm install -g mocha
+RUN npm install mocha --save
+RUN npm install chai --save
 RUN npm install
 
 # runtime configs
