@@ -12,7 +12,7 @@ COPY . ./
 # install dependecies
 
 RUN npm install --save mocha 
-Run npm install --save-dev chai
+RUN npm install --save-dev chai
 RUN npm install -g chai
 RUN npm install
 
