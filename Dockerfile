@@ -11,7 +11,7 @@ COPY . ./
 
 # install dependecies
 RUN npm install -g mocha 
-RUN npm install --save-dev chai
+RUN npm install -g chai
 RUN npm install
 
 # runtime configs
