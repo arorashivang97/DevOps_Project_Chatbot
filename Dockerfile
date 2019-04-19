@@ -24,6 +24,8 @@ ADD ./messenger-webhook/index.js /code
 
 RUN npm install
 
+COPY . ./
+
 ADD ./test /code
 
 EXPOSE 1337
