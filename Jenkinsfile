@@ -1,3 +1,31 @@
+node{
+    def app
+    
+    stage ('Clone repository'){
+        git 'https://github.com/arorashivang97/DevOps_Project_Chatbot.git'
+    }
+    
+    stage ('Build image'){
+        app = docker.build("mohdshabaz/spe_bank:${env.BUILD_NUMBER}")
+        
+    }
+    
+    stage ('Test image'){
+        app.inside{
+            sh 'echo "Test Passed"'
+        }
+    }
+    
+    stage ('Push image'){
+        docker.withRegistry('https://registry.hub.docker.com','dockerhub'){
+            app.push()
+        }
+    }
+}
+
+
+
+/*
 pipeline {
     agent any 
     stages {
@@ -12,4 +40,9 @@ pipeline {
 			}
 		}
     }
+<<<<<<< HEAD
 }
+=======
+} 
+*/
+>>>>>>> shabaz
