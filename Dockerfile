@@ -10,6 +10,7 @@ COPY package.json ./
 COPY . ./
 
 # install dependecies
+RUN npm install -g mocha
 RUN npm install
 
 # runtime configs
