@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-FROM node:8
-
-ADD ./messenger-webhook /code
-
-WORKDIR /code
-
-RUN npm install
-
-EXPOSE 1337
-
-CMD [ "node", "index.js" ]
-=======
 FROM node:7.8-slim
 
 # app workdir
@@ -28,4 +15,3 @@ COPY . ./
 
 # runtime configs
 ENTRYPOINT ["sh","./entrypoint.sh"]
->>>>>>> shabaz
