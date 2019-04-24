@@ -1,6 +1,6 @@
 'use strict';
 
-
+// Chatbot app
 
 // Imports dependencies and set up http server
 const
@@ -8,17 +8,22 @@ const
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()); // creates express http server
 
+
+var database = require("./../database.js");
+
+var username='';
+var password='';
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
-const PAGE_ACCESS_TOKEN = "EAAJDcmMFRPoBAG9cXuHKYpbiW22VRp1AbH3P9JMzapWp1ZC8ZA1IZAMtaM9Hp6RPiJXBgkrD1UsFZA9xCKLZCXAD4mYow1vc7CXMHMzjs7vvu0SfPMPEJjQ5oYA04Ls0zDQVmsyM13mpPB9P5gF6drRxwpTu2KWGjbxRkareZAdQZDZD";
+const PAGE_ACCESS_TOKEN = "EAAJDcmMFRPoBALmQEc9seyWdZCP9b5OgHro2UEM6tahUhe21b4HKSFSy7cWutaNWu63ZCLg8QbUgNd7xdkBptxzROXctvmD0fZCTCGeULf3OI9btWV0pJjS8dNspHjmPkoBS0D7o5fFENEERgGDeIv47ggBZANSeeAK3nfEonROve8cizgRm";
 
 const request = require('request');
 
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
-
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>"
     
@@ -62,7 +67,7 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log(webhook_event.message.nlp.entities)
+      // console.log(webhook_event.message.nlp.entities)
       console.log('Sender PSID: ' + sender_psid);
 
       // Check if the event is a message or postback and
@@ -85,23 +90,155 @@ app.post('/webhook', (req, res) => {
 
 });
 
-function firstEntity(nlp, name) {
-  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
-}
+app.post('/LoginConfirm', (req, res) => {
+  console.log('lalal');
+  console.log(req.body);
+  username = req.body.username;
+  password = req.body.password;
+  res.status(200).send('Login_Successful');
+});
+
+// function firstEntity(nlp, name) {
+//   return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+// }
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
   let response;
-  
+  var user='';
+  var pwd='';
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     
-    const greeting = firstEntity(received_message.nlp, 'greetings');
-    if (greeting && greeting.confidence > 0.8) {
+    // const greeting = firstEntity(received_message.nlp, 'greetings');
+    // if (greeting && greeting.confidence > 0.8) {
+    if(received_message.text == 'Hello'){
       response = {
-        "text": `Hi there!`
+        "text": `Hi there! Please Select from the following options:
+                 1) Login
+                 2) Account details
+                 3) Branch details from name
+                 4) Branch details from location
+                 5) Card Info 
+                 6) Forms
+                 7) FAQS
+                 8) Signout`
+      }
+    }
+    else if(received_message.text == 1){
+      response = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"button",
+            "text":"Try the URL button!",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://c885ef81.ngrok.io/login",
+                "title":"URL Button",
+                "webview_height_ratio": "full"
+              }
+            ]
+          }
+        }
+      }
+      // response = {
+      //   "attachment": {
+      //     "type": "template",
+      //     "payload": {
+      //       "template_type": "generic",
+      //       "elements": [{
+      //         "title": "Please click on the below button",
+      //         "buttons": [
+      //           {
+      //             "type": "postback",
+      //             "title": "Login",
+      //             "payload": "yes",
+      //           }
+      //         ],
+      //       }]
+      //     }
+      //   }
+      // }
+    }
+    else if(received_message.text == 2){
+      if(username=='' && password==''){
+        response = {
+          "text": 'Please Login first. Press 1 to login' 
+        }
+      }
+      else{
+        var ans = await database.account_details(username,password);
+        console.log('/////////////////////////////////////////');
+        // console.log(database.branch_details_given_name("branch1"));
+        console.log(ans);
+        console.log(JSON.stringify(ans[0]));
+        console.log('/////////////////////////////////////////');
+        response = {
+          "text": JSON.stringify(ans[0]) 
+        }
+      }
+    }
+    else if(received_message.text == 3){
+      var ans = await database.branch_details_given_name('branch1');
+      console.log('/////////////////////////////////////////');
+      console.log(ans);
+      console.log(JSON.stringify(ans[0]));
+      console.log('/////////////////////////////////////////');
+      response = {
+        "text": JSON.stringify(ans[0]) 
+      }
+    }
+    else if(received_message.text == 4){
+      var ans = await database.branch_details_given_location('location1');
+      console.log('/////////////////////////////////////////');
+      console.log(ans);
+      console.log(JSON.stringify(ans[0]));
+      console.log('/////////////////////////////////////////');
+      response = {
+        "text": JSON.stringify(ans[0]) 
+      }
+    }
+    else if(received_message.text == 5){
+      if(username=='' && password==''){
+        response = {
+          "text": 'Please Login first. Press 1 to login' 
+        }
+      }
+      else{
+        var ans = await database.card_details(username,password);
+        console.log(ans);
+        console.log(JSON.stringify(ans[0]));
+        response = {
+          "text": JSON.stringify(ans[0]) 
+        }  
+      }
+      
+    }
+    else if(received_message.text == 6){
+      var ans = await database.forms();
+      console.log(ans);
+      console.log(JSON.stringify(ans[0]));
+      response = {
+        "text": JSON.stringify(ans)
+      }
+    }
+    else if(received_message.text == 7){
+      var ans = await database.faqs();
+      console.log(ans);
+      console.log(JSON.stringify(ans[0]));
+      response = {
+        "text": JSON.stringify(ans) 
+      }
+    }
+    else if(received_message.text == 8){
+      username='';
+      password='';
+      response = {
+        "text": 'You have successfully signed out' 
       }
     }
     else{
@@ -166,8 +303,8 @@ function callSendAPI(sender_psid, response) {
 	// Construct the message body
 	let request_body = {
 		"recipient": {
-		"id": sender_psid
-	},
+		  "id": sender_psid
+    },
 		"message": response
 	}
 	// Send the HTTP request to the Messenger Platform
@@ -184,3 +321,76 @@ function callSendAPI(sender_psid, response) {
 	}
 	}); 
 }
+
+
+// Login page
+// var app2 = express();
+// app2.set('view engine', 'ejs');
+
+// app2.listen(process.env.PORT || 4999, () => console.log('Login is listening'));
+
+// app2.get('/', function(req, res){ 
+//   res.render('login',{user: "Great User",title:"homepage"});
+// });
+
+// const
+//   express = require('express'),
+//   bodyParser = require('body-parser'),
+//   app2 = express().use(bodyParser.json()); 
+
+// app2.use(bodyParser.urlencoded({ extended: false }));
+
+// app2.set('view engine', 'ejs');
+
+// app2.set('views', __dirname + '/views');
+
+// app2.listen(process.env.PORT || 4999, () => console.log('Login is listening'));
+
+// app2.get('/login', function(req, res){ 
+//   res.render('login');
+// });
+
+// app2.post('/login', function(req, res) {
+//   console.log('You sent the username "' + req.body.username + '".');
+//   console.log('You sent the password "' + req.body.password + '".');
+// });
+
+const
+  // express = require('express'),
+  // bodyParser = require('body-parser'),
+  app2 = express().use(bodyParser.json()); 
+
+// var request = require("request");
+
+
+// var database = require("./../database.js");
+
+app2.use(bodyParser.urlencoded({ extended: false }));
+
+app2.set('view engine', 'ejs');
+
+app2.set('views', __dirname + '/views');
+
+app2.listen(process.env.PORT || 4999, () => console.log('Login is listening'));
+
+
+app2.get('/login', function(req, res){ 
+  res.render('login');
+});
+
+app2.post('/login', async function(req, res) {
+  console.log('You sent the username "' + req.body.username + '".');
+  console.log('You sent the password "' + req.body.password + '".');
+  var ans = await database.users_exists(req.body.username, req.body.password);
+  // console.log(ans.length > 0);
+  if(ans.length > 0){
+    res.send('Login Successful');
+    request.post("http://773bd199.ngrok.io/LoginConfirm",{ json: { username: req.body.username, password: req.body.password } }, function(error, response, body) {
+      console.log(body);
+    });  
+  }
+  else{
+    res.send('Login Unsuccessful');
+  }
+  
+});

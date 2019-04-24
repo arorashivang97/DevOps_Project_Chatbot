@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta type="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.1/angular-cookies.js"></script> -->
+	<title>Login</title>
+	
+	<style>
+		.header
+		{
+			text-align: center ;
+			margin-bottom:2%;
+		}
+		.loginInput
+		{
+			margin-bottom: 1%;
+		}
+		.forgotPassword
+		{
+			margin-left: 1%;
+		}
+		#radioButton1
+		{
+			margin-bottom: 1%;	
+		}
+		#radioButton2
+		{
+			margin-left: 1%;
+			margin-bottom: 1%;
+		}	
+		#loginButton
+		{
+			margin-left:1%;
+			margin-bottom: 1%;
+		}
+	</style>
+	
+</head>
+<body style="background-color:#33ffbb">
+	<h2 class="header"><b>Login</b></h2>
+	<div align="center">
+	<form action="http://c885ef81.ngrok.io/login" method="post">
+		User Name:<br/>
+		<input type="text" name="username" value="username" class="loginInput"><br/>
+		Password:<br/>
+		<input type="password" name="password" value="password" class="loginInput"><br/>
+		<input type="submit" value="Login" id="loginButton"><br/>
+		<a class="loginInput forgotPassword">Forgot Password?</a>
+	</form>
+	</div>
+</body>
+</html>

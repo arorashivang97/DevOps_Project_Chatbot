@@ -11,14 +11,16 @@ COPY . ./
 
 # install dependecies
 
-RUN npm install --save mocha 
-RUN npm install --save-dev chai
-RUN npm install -g chai
+# RUN npm install --save mocha 
+# RUN npm install --save-dev chai
+# RUN npm install -g chai
 RUN npm install
 
 # runtime configs
 # ENTRYPOINT ["sh","./entrypoint.sh"]
 
 EXPOSE 1337
+EXPOSE 4999
 
-CMD ["node", "./app/index.js"]
+#CMD ["node", "./app/index.js"]
+CMD ["npm", "start"]
