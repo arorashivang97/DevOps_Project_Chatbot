@@ -11,6 +11,6 @@ services:
       - mongo
   mongo:
     container_name: mongo
-    image: mongo
+    build: './mongo'
     ports:
       - '27017:27017'

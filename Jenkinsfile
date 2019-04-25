@@ -1,25 +1,39 @@
 node{
-    def app
+
     
     stage ('Clone repository'){
         git 'https://github.com/arorashivang97/DevOps_Project_Chatbot.git'
     }
     
     stage ('Build image'){
-        app = docker.build("arorashivang97/spe-project:${env.BUILD_NUMBER}")
-        
+
+        sh 'docker build -t arorashivang97/spe-project:app .'
+        sh 'docker build -t arorashivang97/spe-project:app_mongo -f ./mongo/Dockerfile .'
+
+        // app = docker.build("arorashivang97/spe-project")
+        // app_mongo = docker.build("arorashivang97/spe-project")
     }
     
     stage ('Test image'){
-        app.inside{
-            // sh 'npm test'
-        }
+        // app.inside{
+        //     // sh 'npm test'
+        // }
     }
     
     stage ('Push image'){
-        docker.withRegistry('https://registry.hub.docker.com','dockerhub'){
-            app.push()
+        withDockerRegistry([ credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) 
+        {
+            sh 'docker push arorashivang97/spe-project:app'
+            sh 'docker push arorashivang97/spe-project:app_mongo'
         }
+
+
+        // docker.withRegistry('https://registry.hub.docker.com','dockerhub'){
+        //     app.push()
+        // }
+        // docker.withRegistry('https://registry.hub.docker.com','dockerhub'){
+        //     app_mongo.push()
+        // }
     }
     /*post{
 	success{
