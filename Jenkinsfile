@@ -12,7 +12,7 @@ node{
     
     stage ('Test image'){
         app.inside{
-            sh 'npm test'
+            // sh 'npm test'
         }
     }
     
@@ -22,6 +22,15 @@ node{
         }
     }
 
+}
+post{
+	success{
+		curl -D - -X "POST" -H "Accept: application/json" \
+		    -H "Content-Type: application/json" \
+		    -H "X-Rundeck-Auth-Token: <TOKEN>" \
+		    -d '{"argString":"-arg1 val1 -arg2 val2"}' \
+		http://localhost:4440/api/16/job/17039cdf-5e0c-4f55-87c2-37a03fa15fdc/executions
+	}
 }
 
 
