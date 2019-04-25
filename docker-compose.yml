@@ -3,7 +3,7 @@ services:
   app:
     container_name: docker-node-mongo
     restart: always
-    build: .
+    image: arorashivang97/spe-project:app
     ports:
       - '1337:1337'
       - '4999:4999'
@@ -11,6 +11,6 @@ services:
       - mongo
   mongo:
     container_name: mongo
-    build: './mongo'
+    image: arorashivang97/spe-project:app_mongo
     ports:
       - '27017:27017'
