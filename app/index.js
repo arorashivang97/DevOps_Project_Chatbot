@@ -247,9 +247,9 @@ async function handleMessage(sender_psid, received_message) {
       console.log(ans);
       console.log(JSON.stringify(ans[0]));
 
-      var resp = 'Here are the branch details:'+' 1)Name: '+ans[0].name+',located at:'+ans[0].located+',iifsc code:'+ans[0].iifsc+',Workings hours:'+ans[0].stime+'-'+ans[0].ftime+'- from Monday to Friday'
-                                              +' 2)Name: '+ans[1].name+',located at:'+ans[1].located+',iifsc code:'+ans[1].iifsc+',Workings hours:'+ans[1].stime+'-'+ans[1].ftime+'- from Monday to Friday'
-                                              +' 3)Name: '+ans[2].name+',located at:'+ans[2].located+',iifsc code:'+ans[2].iifsc+',Workings hours:'+ans[2].stime+'-'+ans[2].ftime+'- from Monday to Friday';
+      var resp = 'Here are the branch details:'+' 1)Name: '+ans[0].name+',located at:'+ans[0].location+',iifsc code:'+ans[0].iifsc+',Workings hours:'+ans[0].stime+'-'+ans[0].ftime+'- from Monday to Friday'
+                                              +' 2)Name: '+ans[1].name+',located at:'+ans[1].location+',iifsc code:'+ans[1].iifsc+',Workings hours:'+ans[1].stime+'-'+ans[1].ftime+'- from Monday to Friday'
+                                              +' 3)Name: '+ans[2].name+',located at:'+ans[2].location+',iifsc code:'+ans[2].iifsc+',Workings hours:'+ans[2].stime+'-'+ans[2].ftime+'- from Monday to Friday';
 
 
       console.log('/////////////////////////////////////////');
@@ -292,7 +292,7 @@ async function handleMessage(sender_psid, received_message) {
         console.log(ans);
         console.log(JSON.stringify(ans[0]));
 
-        var resp = 'Card details to your card is:'+'Card Type:'+ans.type+',Card Number: '+ans.card_no+',Status:Active'
+        var resp = 'Card details to your card is:'+'Card Type:'+ans[0].type+',Card Number: '+ans[0].card_no+',Status:Active'
 
         response = {
           //"text": JSON.stringify(ans[0]) 
