@@ -20,6 +20,38 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 const PAGE_ACCESS_TOKEN = "EAAJDcmMFRPoBALmQEc9seyWdZCP9b5OgHro2UEM6tahUhe21b4HKSFSy7cWutaNWu63ZCLg8QbUgNd7xdkBptxzROXctvmD0fZCTCGeULf3OI9btWV0pJjS8dNspHjmPkoBS0D7o5fFENEERgGDeIv47ggBZANSeeAK3nfEonROve8cizgRm";
 
 const request = require('request');
+const path = require('path');
+const winston = require('winston');
+const time = () => (new Date()).toLocaleTimeString();
+const fs = require('fs');
+const env = process.env.NODE_ENV || 'development';
+const logDir = 'log';
+
+var id = 1
+
+
+
+if (!fs.existsSync(logDir)){
+  fs.mkdirSync(logDir)
+}
+
+const logger = new (winston.createLogger)({
+  transports: [
+  new (winston.transports.Console)({
+    colorize: true,
+    timestamp : time,
+    level: 'info'
+  }),
+
+  new (winston.transports.File)({
+    filename: `${logDir}/logs`,
+    timestamp: time,
+    level:env === 'development' ? 'debug' : 'info',
+    
+  })
+  ]
+});
+
 
 
 // Adds support for GET requests to our webhook
@@ -107,6 +139,7 @@ async function handleMessage(sender_psid, received_message) {
   let response;
   var user='';
   var pwd='';
+  var tag='';
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -114,18 +147,28 @@ async function handleMessage(sender_psid, received_message) {
     
     // const greeting = firstEntity(received_message.nlp, 'greetings');
     // if (greeting && greeting.confidence > 0.8) {
+
+
+    id = id +1;
+    logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+    logger.info({"type":'api-call',"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid})
+
+
     if(received_message.text == 'Hello'){
       response = {
         "text": `Hi there! Please Select from the following options:
                  1) Login
                  2) Account details
-                 3) Branch details from name
-                 4) Branch details from location
-                 5) Card Info 
-                 6) Forms
-                 7) FAQS
-                 8) Signout`
+                 3) Branch details
+                 4) Card Info 
+                 5) FAQS
+                 6) Signout`
       }
+      tag = 'Hello';
+      id = id +1;
+      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+      logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+
     }
     else if(received_message.text == 1){
       response = {
@@ -133,7 +176,7 @@ async function handleMessage(sender_psid, received_message) {
           "type":"template",
           "payload":{
             "template_type":"button",
-            "text":"Try the URL button!",
+            "text":"Click on the button to Login!",
             "buttons":[
               {
                 "type":"web_url",
@@ -145,6 +188,13 @@ async function handleMessage(sender_psid, received_message) {
           }
         }
       }
+
+
+      tag = '1';
+      id = id +1;
+      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+      logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
+
       // response = {
       //   "attachment": {
       //     "type": "template",
@@ -169,6 +219,10 @@ async function handleMessage(sender_psid, received_message) {
         response = {
           "text": 'Please Login first. Press 1 to login' 
         }
+        tag = '2';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
       }
       else{
         var ans = await database.account_details(username,password);
@@ -176,75 +230,142 @@ async function handleMessage(sender_psid, received_message) {
         // console.log(database.branch_details_given_name("branch1"));
         console.log(ans);
         console.log(JSON.stringify(ans[0]));
+        var resp = 'Dear '+username+', Your account number '+ans[0].acc_no+' has a bank balance of Rs. '+ans[0].balance
         console.log('/////////////////////////////////////////');
         response = {
-          "text": JSON.stringify(ans[0]) 
+          //"text": JSON.stringify(ans[0]) 
+          "text": resp
         }
+        tag = '2';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
       }
     }
     else if(received_message.text == 3){
-      var ans = await database.branch_details_given_name('branch1');
+      var ans = await database.branch_details();
       console.log('/////////////////////////////////////////');
       console.log(ans);
       console.log(JSON.stringify(ans[0]));
+
+      var resp = 'Here are the branch details:'+' 1)Name: '+ans[0].name+',located at:'+ans[0].located+',iifsc code:'+ans[0].iifsc+',Workings hours:'+ans[0].stime+'-'+ans[0].ftime+'- from Monday to Friday'
+                                              +' 2)Name: '+ans[1].name+',located at:'+ans[1].located+',iifsc code:'+ans[1].iifsc+',Workings hours:'+ans[1].stime+'-'+ans[1].ftime+'- from Monday to Friday'
+                                              +' 3)Name: '+ans[2].name+',located at:'+ans[2].located+',iifsc code:'+ans[2].iifsc+',Workings hours:'+ans[2].stime+'-'+ans[2].ftime+'- from Monday to Friday';
+
+
       console.log('/////////////////////////////////////////');
       response = {
-        "text": JSON.stringify(ans[0]) 
+        //"text": JSON.stringify(ans[0]) 
+        "text": resp
       }
+
+      tag = '3';
+      id = id +1;
+      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+      logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
     }
+    // else if(received_message.text == 4){
+    //   var ans = await database.branch_details_given_location('location1');
+    //   console.log('/////////////////////////////////////////');
+    //   console.log(ans);
+    //   console.log(JSON.stringify(ans[0]));
+    //   console.log('/////////////////////////////////////////');
+    //   response = {
+    //     "text": JSON.stringify(ans[0]) 
+    //   }
+    //   tag = '4';
+    //   id = id +1;
+    //   logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+    //   logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    // }
     else if(received_message.text == 4){
-      var ans = await database.branch_details_given_location('location1');
-      console.log('/////////////////////////////////////////');
-      console.log(ans);
-      console.log(JSON.stringify(ans[0]));
-      console.log('/////////////////////////////////////////');
-      response = {
-        "text": JSON.stringify(ans[0]) 
-      }
-    }
-    else if(received_message.text == 5){
       if(username=='' && password==''){
         response = {
           "text": 'Please Login first. Press 1 to login' 
         }
+        tag = '5';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
       }
       else{
         var ans = await database.card_details(username,password);
         console.log(ans);
         console.log(JSON.stringify(ans[0]));
+
+        var resp = 'Card details to your card is:'+'Card Type:'+ans.type+',Card Number: '+ans.card_no+',Status:Active'
+
         response = {
-          "text": JSON.stringify(ans[0]) 
-        }  
+          //"text": JSON.stringify(ans[0]) 
+          "text": resp
+        }
+
+        tag = '4';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})  
       }
       
     }
-    else if(received_message.text == 6){
-      var ans = await database.forms();
-      console.log(ans);
-      console.log(JSON.stringify(ans[0]));
-      response = {
-        "text": JSON.stringify(ans)
-      }
-    }
-    else if(received_message.text == 7){
+    // else if(received_message.text == 5){
+    //   var ans = await database.forms();
+    //   console.log(ans);
+    //   console.log(JSON.stringify(ans[0]));
+    //   response = {
+    //     "text": JSON.stringify(ans)
+    //   }
+
+
+    //     tag = '5';
+    //     id = id +1;
+    //     logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+    //     logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    // }
+    else if(received_message.text == 5){
       var ans = await database.faqs();
       console.log(ans);
       console.log(JSON.stringify(ans[0]));
+
+      var resp = 'Here are some of the Frequently Asked Questions (FAQs)'+
+                  '1)'+ans[0].query+', Ans: '+ans[0].ans+
+                  '2)'+ans[1].query+', Ans: '+ans[1].ans+
+                  '3)'+ans[2].query+', Ans: '+ans[2].ans+
+                  '4)'+ans[3].query+', Ans: '+ans[3].ans+
+                  '5)'+ans[4].query+', Ans: '+ans[4].ans
+
+
       response = {
-        "text": JSON.stringify(ans) 
+        //"text": JSON.stringify(ans) 
+        "text": resp
       }
+
+        tag = '5';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
     }
-    else if(received_message.text == 8){
+    else if(received_message.text == 6){
       username='';
       password='';
       response = {
-        "text": 'You have successfully signed out' 
-      }
+        "text": `You have successfully signed out.
+                 Dear Customer, The bot never CALL/SMS/Email asking you for your personal bank info or to deposit money into any bank a/c for promotional rewards. Beware of fraudsters and do not act on such messages. Please read data security policies on our website www.demobankchatbot.com`
+        }
+
+        tag = '6';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
     }
     else{
       response = {
       "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
       }  
+
+        tag = '8';
+        id = id +1;
+        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
     }
     
   } else if (received_message.attachments) {
@@ -394,3 +515,6 @@ app2.post('/login', async function(req, res) {
   }
   
 });
+
+
+

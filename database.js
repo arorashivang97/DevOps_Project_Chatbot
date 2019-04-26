@@ -38,6 +38,9 @@ db.once('open', function() {
     var customer3 = new Customer({ username: 'cust3', password: 'password3'});    
     var customer4 = new Customer({ username: 'cust4', password: 'password4'});    
     var customer5 = new Customer({ username: 'cust5', password: 'password5'});    
+    var shabaz = new Customer({ username: 'shabaz', password: 'password'});    
+    var shivang = new Customer({ username: 'shivang', password: 'password'});    
+    var vaibhav = new Customer({ username: 'vaibhav', password: 'password'});    
  
     customer1.save(function (err, book) {
       if (err) return console.error(err);
@@ -63,16 +66,28 @@ db.once('open', function() {
       if (err) return console.error(err);
       console.log(customer5.username + " saved to bookstore collection.");
     }); 
+
+    shabaz.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(shabaz.username + " saved to bookstore collection.");
+    }); 
+    shivang.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(shivang.username + " saved to bookstore collection.");
+    }); 
+    vaibhav.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(vaibhav.username + " saved to bookstore collection.");
+    }); 
  
  
  
  
  
-    var branch1 = new Branch({ name: 'branch1', location: 'location1',iifsc:'iifsc1',stime:'9:00',ftime:'16:00'});    
-    var branch2 = new Branch({ name: 'branch2', location: 'location2',iifsc:'iifsc2',stime:'8:45',ftime:'15:45'});    
-    var branch3 = new Branch({ name: 'branch3', location: 'location3',iifsc:'iifsc3',stime:'9:15',ftime:'16:15'});    
-    var branch4 = new Branch({ name: 'branch4', location: 'location4',iifsc:'iifsc4',stime:'9:00',ftime:'16:00'});    
-    var branch5 = new Branch({ name: 'branch5', location: 'location5',iifsc:'iifsc5',stime:'8:30',ftime:'15:30'});    
+    var branch1 = new Branch({ name: 'branch1', location: 'IIITB, E-city1',iifsc:'iifsc1',stime:'9:00',ftime:'16:00'});    
+    var branch2 = new Branch({ name: 'branch2', location: 'Hebbal',iifsc:'iifsc2',stime:'8:45',ftime:'15:45'});    
+    var branch3 = new Branch({ name: 'branch3', location: 'Tech Mahindra, E-city2',iifsc:'iifsc3',stime:'9:15',ftime:'16:15'});    
+  
  
     branch1.save(function (err, book) {
       if (err) return console.error(err);
@@ -89,15 +104,6 @@ db.once('open', function() {
       console.log(branch3.name + " saved to bookstore collection.");
     });
     
-    branch4.save(function (err, book) {
-      if (err) return console.error(err);
-      console.log(branch4.name + " saved to bookstore collection.");
-    });
-    
-    branch5.save(function (err, book) {
-      if (err) return console.error(err);
-      console.log(branch5.name + " saved to bookstore collection.");
-    }); 
  
  
  
@@ -106,6 +112,9 @@ db.once('open', function() {
   var c3 = customer3;
   var c4 = customer4;
   var c5 = customer5;
+  var c6 = shabaz;
+  var c7 = shivang;
+  var c8 = vaibhav;
   
   console.log("c1 -----> "+c1._id);
   
@@ -115,6 +124,9 @@ db.once('open', function() {
     var account3 = new Account({ name: 'account3', dob: '23-6-2002',aadhar:'XYZABC113',acc_no:'2015003',balance:40000,user_id:c3._id});    
     var account4 = new Account({ name: 'account4', dob: '24-7-2003',aadhar:'XYZABC114',acc_no:'2015004',balance:50000,user_id:c4._id});    
     var account5 = new Account({ name: 'account5', dob: '25-8-2004',aadhar:'XYZABC115',acc_no:'2015005',balance:60000,user_id:c5._id});    
+    var account6 = new Account({ name: 'account6', dob: '04-11-1996',aadhar:'XYZABC116',acc_no:'2015006',balance:60000,user_id:c6._id});    
+    var account7 = new Account({ name: 'account7', dob: '26-11-1997',aadhar:'XYZABC117',acc_no:'2015007',balance:60000,user_id:c7._id});    
+    var account8 = new Account({ name: 'account8', dob: '23-11-1996',aadhar:'XYZABC118',acc_no:'2015008',balance:60000,user_id:c8._id});    
  
  
  
@@ -142,6 +154,18 @@ db.once('open', function() {
       if (err) return console.error(err);
       console.log(account5.name + " saved to bookstore collection.");
     });
+     account6.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(account6.name + " saved to bookstore collection.");
+    });
+     account7.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(account7.name + " saved to bookstore collection.");
+    });
+     account8.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(account8.name + " saved to bookstore collection.");
+    });
  
  
  
@@ -152,6 +176,9 @@ db.once('open', function() {
     var card3 = new Card({ type: 'Credit', card_no:'12408883',status:false,user_id:c3._id});    
     var card4 = new Card({ type: 'Credit', card_no:'12408884',status:false,user_id:c4._id});    
     var card5 = new Card({ type: 'Debit', card_no: '12408885',status:true,user_id:c5._id});    
+    var card6 = new Card({ type: 'Debit', card_no: '12408886',status:true,user_id:c6._id});    
+    var card7 = new Card({ type: 'Debit', card_no: '12408887',status:true,user_id:c7._id});    
+    var card8 = new Card({ type: 'Debit', card_no: '12408888',status:true,user_id:c8._id});    
  
  
  
@@ -179,6 +206,19 @@ db.once('open', function() {
       if (err) return console.error(err);
       console.log(card5.type + " saved to bookstore collection.");
     });
+
+    card6.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(card6.type + " saved to bookstore collection.");
+    });
+    card7.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(card7.type + " saved to bookstore collection.");
+    });
+    card8.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(card8.type + " saved to bookstore collection.");
+    });        
  
  
     var form1 = new Form({ purpose: 'Account_Open', filepath: 'filepath1'});    
@@ -215,11 +255,11 @@ db.once('open', function() {
     });
  
 
-    var faq1 = new Faq({ query: 'faq1', ans: 'ans1'});    
-    var faq2 = new Faq({ query: 'faq2', ans: 'ans2'});    
-    var faq3 = new Faq({ query: 'faq3', ans:'ans3'});    
-    var faq4 = new Faq({ query: 'faq4', ans:'ans4'});    
-    var faq5 = new Faq({ query: 'faq5', ans: 'ans5'});    
+    var faq1 = new Faq({ query: '1) What is an EMI?', ans: 'EMI or Equated Monthly Instalment is a fixed amount paid by you to the bank on a specific date every month. The EMIs are fixed when you borrow money from the bank as a loan. EMIs are used to pay both interest and principal amount of a loan in a way that over a specific number of years, the loan amount is repaid to the bank alongwith interest. '});    
+    var faq2 = new Faq({ query: '2) What are the number of properties I can own?', ans: 'You can own as many properties as you want.'});    
+    var faq3 = new Faq({ query: '3) What makes of cars does our bank finance?', ans:'We finance all makes of new cars, and second hand cars not more than five years old. Thus, you are free to choose any vehicle you want to own.'});    
+    var faq4 = new Faq({ query: '4) What Security do I have to furnish for availing the Car Loan?', ans:'A charge on the vehicle financed is noted with local Transport Authorities . Your spouses guarantee, if his/her income has been considered for fixing the loan amount, would also be required. Some other security may also be required in certain cases.'});    
+    var faq5 = new Faq({ query: '5) What is EMI? How is it calculated?', ans: 'EMI stands for Equated Monthly Instalments. This instalment comprises both principal and interest components. Your EMI would be calculated depending on the tenor you choose, to repay your loan. The EMI would be higher if you choose to repay within a shorter period as against a longer-term loan. A shorter repayment period, however, reduces your interest cost over the term of the loan.'});    
  
  
  
@@ -404,4 +444,15 @@ exports.faqs = async function(){//userExistsInDB(username, password) {
   let faq_details = await collection.find().toArray();
   console.log(faq_details);
   return faq_details;
+}
+
+
+//return details of the branch when the branch location is given
+exports.branch_details = async function(){
+
+  let collection = db.collection('branches');
+  
+  let branch_det = await collection.find().toArray();
+  console.log(branch_det);
+  return branch_det;
 }

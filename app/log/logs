@@ -1,0 +1,36 @@
+{"message":{"index":{"index":"Spe_Bank","_id":2},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"","text_entry":"2","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":3},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"2","text_entry":{"text":"Please Login first. Press 1 to login"},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":4},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"","text_entry":"5","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":5},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"5","text_entry":{"text":"Please Login first. Press 1 to login"},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":6},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"","text_entry":"8","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":7},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"8","text_entry":{"text":"You have successfully signed out"},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":8},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"","text_entry":"Hi","sender_id":"2462012790485374"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":9},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"8","text_entry":{"text":"You sent the message: \"Hi\". Now send me an attachment!"},"sender_id":"2462012790485374"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":10},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"","text_entry":"Hello","sender_id":"2462012790485374"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":11},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","call_name":"Hello","text_entry":{"text":"Hi there! Please Select from the following options:\n                 1) Login\n                 2) Account details\n                 3) Branch details from name\n                 4) Branch details from location\n                 5) Card Info \n                 6) Forms\n                 7) FAQS\n                 8) Signout"},"sender_id":"2462012790485374"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":2},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"","text_entry":"1","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":3},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"1","text_entry":{"attachment":{"type":"template","payload":{"template_type":"button","text":"Try the URL button!","buttons":[{"type":"web_url","url":"http://c885ef81.ngrok.io/login","title":"URL Button","webview_height_ratio":"full"}]}}},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":4},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"","text_entry":"2","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":5},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"2","text_entry":{"text":"Please Login first. Press 1 to login"},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":6},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"","text_entry":"Hello","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":7},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"Hello","text_entry":{"text":"Hi there! Please Select from the following options:\n                 1) Login\n                 2) Account details\n                 3) Branch details\n                 4) Card Info \n                 5) FAQS\n                 6) Signout"},"sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":8},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"","text_entry":"6","sender_id":"2574985062530691"},"level":"info"}
+{"message":{"index":{"index":"Spe_Bank","_id":9},"level":"info","message":""},"level":"info"}
+{"message":{"type":"api-call","method":"GET","call_name":"6","text_entry":{"text":"You have successfully signed out.\n                 Dear Customer, The bot never CALL/SMS/Email asking you for your personal bank info or to deposit money into any bank a/c for promotional rewards. Beware of fraudsters and do not act on such messages. Please read data security policies on our website www.demobankchatbot.com"},"sender_id":"2574985062530691"},"level":"info"}
