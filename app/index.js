@@ -150,9 +150,8 @@ async function handleMessage(sender_psid, received_message) {
 
 
     id = id +1;
-    logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-    logger.info({"type":'api-call',"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid})
-
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
 
     if(received_message.text == 'Hello'){
       response = {
@@ -166,8 +165,8 @@ async function handleMessage(sender_psid, received_message) {
       }
       tag = 'Hello';
       id = id +1;
-      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-      logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+          logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
 
     }
     else if(received_message.text == 1){
@@ -180,7 +179,7 @@ async function handleMessage(sender_psid, received_message) {
             "buttons":[
               {
                 "type":"web_url",
-                "url":"http://c885ef81.ngrok.io/login",
+                "url":"http://localhost:4999/login",
                 "title":"URL Button",
                 "webview_height_ratio": "full"
               }
@@ -192,8 +191,8 @@ async function handleMessage(sender_psid, received_message) {
 
       tag = '1';
       id = id +1;
-      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-      logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
 
       // response = {
       //   "attachment": {
@@ -221,8 +220,8 @@ async function handleMessage(sender_psid, received_message) {
         }
         tag = '2';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
       }
       else{
         var ans = await database.account_details(username,password);
@@ -238,8 +237,8 @@ async function handleMessage(sender_psid, received_message) {
         }
         tag = '2';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
       }
     }
     else if(received_message.text == 3){
@@ -261,8 +260,8 @@ async function handleMessage(sender_psid, received_message) {
 
       tag = '3';
       id = id +1;
-      logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-      logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
     }
     // else if(received_message.text == 4){
     //   var ans = await database.branch_details_given_location('location1');
@@ -275,7 +274,7 @@ async function handleMessage(sender_psid, received_message) {
     //   }
     //   tag = '4';
     //   id = id +1;
-    //   logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+    //   logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info',  "timemstamp":time});
     //   logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
     // }
     else if(received_message.text == 4){
@@ -285,8 +284,8 @@ async function handleMessage(sender_psid, received_message) {
         }
         tag = '5';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
       }
       else{
         var ans = await database.card_details(username,password);
@@ -302,8 +301,8 @@ async function handleMessage(sender_psid, received_message) {
 
         tag = '4';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})  
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
       }
       
     }
@@ -318,7 +317,7 @@ async function handleMessage(sender_psid, received_message) {
 
     //     tag = '5';
     //     id = id +1;
-    //     logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
+    //     logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info',  "timemstamp":time});
     //     logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
     // }
     else if(received_message.text == 5){
@@ -341,8 +340,8 @@ async function handleMessage(sender_psid, received_message) {
 
         tag = '5';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call', "method":"GET","call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
     }
     else if(received_message.text == 6){
       username='';
@@ -354,8 +353,8 @@ async function handleMessage(sender_psid, received_message) {
 
         tag = '6';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
     }
     else{
       response = {
@@ -364,8 +363,8 @@ async function handleMessage(sender_psid, received_message) {
 
         tag = '8';
         id = id +1;
-        logger.info({"index":{"index":"Spe_Bank", "_id":id}, "level":'info', 'message':"", "timemstamp":time});
-        logger.info({"type":'api-call',"method":"GET", "call_name":tag, "text_entry":response, "sender_id":sender_psid})
+    logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
+    logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
     }
     
   } else if (received_message.attachments) {
@@ -481,10 +480,6 @@ const
   // bodyParser = require('body-parser'),
   app2 = express().use(bodyParser.json()); 
 
-// var request = require("request");
-
-
-// var database = require("./../database.js");
 
 app2.use(bodyParser.urlencoded({ extended: false }));
 
@@ -503,10 +498,9 @@ app2.post('/login', async function(req, res) {
   console.log('You sent the username "' + req.body.username + '".');
   console.log('You sent the password "' + req.body.password + '".');
   var ans = await database.users_exists(req.body.username, req.body.password);
-  // console.log(ans.length > 0);
   if(ans.length > 0){
     res.send('Login Successful');
-    request.post("http://773bd199.ngrok.io/LoginConfirm",{ json: { username: req.body.username, password: req.body.password } }, function(error, response, body) {
+    request.post("http://45d9af87.ngrok.io/LoginConfirm",{ json: { username: req.body.username, password: req.body.password } }, function(error, response, body) {
       console.log(body);
     });  
   }

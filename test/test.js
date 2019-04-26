@@ -3,7 +3,7 @@ var request = require("request");
 
 describe("Verify webhook", function() {
 
-    var url = "https://8d0de83b.ngrok.io/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe";
+    var url = "http://localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe";
 
     it("returns challenge", function(done) {
       request(url, function(error, response, body) {

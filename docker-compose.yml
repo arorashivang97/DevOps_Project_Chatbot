@@ -4,6 +4,8 @@ services:
     container_name: docker-node-mongo
     restart: always
     image: arorashivang97/spe-project:app
+    volumes:
+      - ./home/sem8/spe/elk/logs:/code/app/log
     ports:
       - '1337:1337'
       - '4999:4999'
