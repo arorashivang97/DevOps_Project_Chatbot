@@ -24,7 +24,7 @@ COPY . ./
 #RUN npm install chai
 
 
-
+RUN npm install winston
 RUN npm install
 
 # runtime configs
