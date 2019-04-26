@@ -1,6 +1,4 @@
 node{
-
-    
     stage ('Clone repository'){
         git 'https://github.com/arorashivang97/DevOps_Project_Chatbot.git'
     }
@@ -15,9 +13,8 @@ node{
     }
     
     stage ('Test image'){
-        // app.inside{
-        //     // sh 'npm test'
-        // }
+        build job: 'bank_runImage'
+        build job: 'bank_testImage'
     }
     
     stage ('Push image'){
@@ -31,7 +28,6 @@ node{
     stage ('Build Rundeck job'){
         build job: 'Bank2'
     }
-
 }
 
 
