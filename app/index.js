@@ -153,7 +153,7 @@ async function handleMessage(sender_psid, received_message) {
     logger.info({"index":{"_index":"Spe_Bank", "_type":"something", "_id":id}});
     logger.info({"method":"GET", "call_name":'', "text_entry":received_message.text, "sender_id":sender_psid, "timestamp":time})
 
-    if(received_message.text == 'Hello'){
+    if(received_message.text == 'Hi all'){
       response = {
         "text": `Hi there! Please Select from the following options:
                  1) Login
